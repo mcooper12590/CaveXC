@@ -21,9 +21,11 @@ def calcLSTC(Tb, rho_s, D_s, T_sc):
 def findBedLoad(wcs, y_min, q_t, Q_s):
 
 	# Alluviation forcing if critical shields stress is not reached
-	if (type(q_t) is int): return 0, -1
-        # Force alluviation if we reach the ceiling
-    	elif simps2(q_t, wcs.x) < Q_s: return 0, -1
+	if (type(q_t) is int):
+		return 0,-1
+    # Force alluviation if we reach the ceiling
+	elif (simps2(q_t, wcs.x)) < Q_s:
+		return 0,-1
 
 	tQ_s = 0.
 	low = y_min
