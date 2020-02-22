@@ -29,12 +29,10 @@ def _basic_simps(y,start,stop,x,dx,axis):
     else:
         # Account for possibly different spacings.
         #    Simpson's rule changes a bit.
-
-	h = abs(diff(x,axis=axis))
-	# Changed h to absolute of the difference account for moving along
-	# the outside of a circle
-
-	sl0 = tupleset(all, axis, slice(start, stop, step))
+        h = abs(diff(x,axis=axis))
+        # Changed h to absolute of the difference account for moving along
+        # the outside of a circle
+        sl0 = tupleset(all, axis, slice(start, stop, step))
         sl1 = tupleset(all, axis, slice(start+1, stop+1, step))
         h0 = h[sl0]
         h1 = h[sl1]
@@ -106,4 +104,3 @@ def tupleset(t, i, value):
     l = list(t)
     l[i] = value
     return tuple(l)
-
