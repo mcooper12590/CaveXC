@@ -80,7 +80,7 @@ for ts in arange(t):
 
     # Print width every 1k timesteps
     if ts%1000 == 0:
-        print widths[ts]
+        print(widths[ts])
 
 # Plot channel geometry
 fi = figure(figsize=(10,6))

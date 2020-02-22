@@ -42,36 +42,36 @@ for i in np.arange(1, len(sys.argv)):
 suffix = params['suffix']
 
 brh = params['rh']
-print "Bedrock roughness height:", brh
+print("Bedrock roughness height:", brh)
 
 Q = params['Q']
-print "Discharge:", Q
+print("Discharge:", Q)
 
 Q_s = params['Qs']
-print "Sediment discharge:", Q_s
+print("Sediment discharge:", Q_s)
 
 n = params['n']
-print "Erosional power:", n
+print("Erosional power:", n)
 k = 10
 
 rho_s = params['rho_s']
-print "Sediment density:", rho_s
+print("Sediment density:", rho_s)
 
 D_s = params['D_s']
-print "Sediment diameter:", D_s
+print("Sediment diameter:", D_s)
 
 S_rh = 6.8*D_s/30
-print "Sediment Roughness height:", S_rh
+print("Sediment Roughness height:", S_rh)
 
 rh_type = int(params['rh_type'])
-if rh_type == 1: rh = brh; print "Roughness:", rh
-elif rh_type == 2: rh = S_rh; print "Roughness:", rh
-elif rh_type == 3: print "Using composite roughness"
-elif rh_type == 4: print "Using per point roughness"
-else: print "Invalid roughness type, defaulting to bedrock."
+if rh_type == 1: rh = brh; print("Roughness:", rh)
+elif rh_type == 2: rh = S_rh; print("Roughness:", rh)
+elif rh_type == 3: print("Using composite roughness")
+elif rh_type == 4: print("Using per point roughness")
+else: print("Invalid roughness type, defaulting to bedrock.")
 
 T_sc = calcTscr(rho_s, D_s)
-print "Critical shields stress:", T_sc
+print("Critical shields stress:", T_sc)
 
 # Done printing run info, do we want to print per ts info?
 if params['suppress_print']: sys.stdout = open(devnull, "w")
@@ -231,7 +231,7 @@ while(True):
 	aspect[ts-1] = widths[ts-1] / ( wcs.y.max() - wcs.y.min() )
 
 	if ((ts-1)%1000 == 0):
-		print "Width:", wcs.x.max() - wcs.x.min()
+		print("Width:", wcs.x.max() - wcs.x.min())
 		#print "RReynolds:", sqrt(9.81*wcs.A/wcs.P*F.S)*D_s/1e-6
 		#if ts!=1: print std(aspect[ts-102:ts-2])
 		#plt.plot(cs.x, cs.y, 'bo')
@@ -255,7 +255,7 @@ while(True):
 	# Time step increment and break if time limit is reached
 	ts+=1
 	if (ts==t+1):
-		print F.T_b.min(); break
+		print(F.T_b.min()); break
 
 plt.plot(cs.x, cs.y, 'bo')
 plt.plot(wcs.x, wcs.y, 'r.')
@@ -266,7 +266,7 @@ plt.show()
 ws = widths[ts-102:ts-2]
 
 eqWidth = round(mean(ws), 3)
-print "Equilibrium width:", eqWidth
+print("Equilibrium width:", eqWidth)
 
 if params['save_data']==1:
 	sd = zeros((ts, 4))
@@ -295,7 +295,7 @@ if params['save_data']==1:
 
 AreaF = Aw[ts-2]
 AspectM = mean(aspect[ts-102:ts-2])
-print AspectM
+print(AspectM)
 
 # Write out results to database unless supress save is enabled
 if params['suppress_save']==1: sys.exit()
