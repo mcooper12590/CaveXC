@@ -1,3 +1,4 @@
+import sys
 from numpy import zeros, linspace, flip, ones, concatenate, arange
 from matplotlib.pyplot import figure, plot, axis, show
 from ShapeGen import *
@@ -89,8 +90,11 @@ axis("equal")
 show()
 
 # Ask if the channel is equilibrated
+if sys.version_info[0]<3:
+    yn = raw_input("Has channel reached a constant width [y/n]? ")
+else:
+    yn = input("Has channel reached a constant width [y/n]? ")
 
-yn = raw_input("Has channel reached a constant width [y/n]? ")
 
 L, R = cs.findLR(h)
 x_l = cs.x[L-15:L-5].mean()
