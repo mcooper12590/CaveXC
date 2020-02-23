@@ -25,7 +25,8 @@ params = {
 	'save_data':0,
 	'rh_type':1,
 	'suppress_print':0,
-	't':10000
+	't':10000,
+	'sc':1
 }
 
 # Get parameters from the command line
@@ -70,8 +71,14 @@ elif rh_type == 3: print("Using composite roughness")
 elif rh_type == 4: print("Using per point roughness")
 else: print("Invalid roughness type, defaulting to bedrock.")
 
+scor = params['sc']
+if scor: print("Correcting bedload sediment supply with sus. sed.")
+else: print("Bedload sediment supply is Qs")
+
 T_sc = calcTscr(rho_s, D_s)
 print("Critical shields stress:", T_sc)
+
+w = calcFallVelocity(rho_s, D_s)
 
 # Done printing run info, do we want to print per ts info?
 if params['suppress_print']: sys.stdout = open(devnull, "w")
@@ -204,15 +211,28 @@ while(True):
 
 	F.regenT_b(phi, alpha)
 
+	# Calculate bed-load by subtracting suspsended from Q_s
+	if scor:
+		Ct = calcSuspendedConcentration(D_s, rho_s, F.R, F.S, F.u_bar, w, F.T_b.mean())
+		print Q*Ct*rho_s
+		Qs_cor = Q_s - Q*Ct*rho_s
+	else: Qs_cor = Q_s
+
 	# Locate bed-load layer, if not enough capacity set to 0, -1 to garuntee
 	# alluviation
 	q_t = calcLSTC(F.T_b, rho_s, D_s, T_sc)
 	xLs, xRs = findBedLoad(wcs, y_min, q_t, Q_s)
 
-	# Alluviate by D_s if BLL thickness > 5*D_s
-	if (wcs.y[xLs] - wcs.y[y_min]) > 5*D_s:
-		ah = ah+1*D_s
-		continue
+	# There is a possibility of no bedload if all is being transported
+	# as suspended load
+	if Qs_cor > 0:
+		q_t = calcLSTC(F.T_b, rho_s, D_s, T_sc)
+		xLs, xRs = findBedLoad(wcs, y_min, q_t, Qs_cor)
+
+		# Alluviate by D_s if BLL thickness > 5*D_s
+		if (wcs.y[xLs] - wcs.y[y_min]) > 5*D_s:
+			ah = ah+1*D_s
+			continue
 
 	# Redraw the cross-section as a function of shear stress
 	rl = zeros(cs.x.size)

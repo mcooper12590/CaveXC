@@ -66,3 +66,25 @@ def calcTscr(rho_s, D_s):
 	T_sc = T_cr/((rho_s - 999.97)*9.81*D_s)
 
 	return T_sc
+
+def calcFallVelocity(rho_s, D_s):
+	Sd = (rho_s - 999.97)/999.7
+	C1 = 18.; C2 = 1.0;
+	w = Sd*9.81*D_s**2 / ( C1*1e-6 + (0.75*C2*Sd*9.81*D_s**3)**0.5 )
+	return w
+
+def calcSuspendedConcentration(D_s, rho_s, R, S, u_bar, w, T_bm):
+	Sd = (rho_s-999.97)/999.97
+
+	R_star = sqrt(T_bm/999.97)*D_s/1e-6
+	if R_star >= 0.6: lhs = 0.25
+	else: lhs = 0.15/R_star
+
+	Ucs = lhs*Sd/9.81/D_s
+	T_sc = Ucs**2*999.97
+
+	if T_sc < T_bm: return 0
+
+	T_e = 1 - (6.8*D_s/R)**0.06
+	Ct = 0.034 * T_e * T_bm/((rho_s-999.97)*9.81*R) * u_bar/w
+	return Ct
