@@ -74,14 +74,11 @@ def calcFallVelocity(rho_s, D_s):
 	return w
 
 def calcSuspendedConcentration(D_s, rho_s, R, S, u_bar, w, T_bm):
-	Sd = (rho_s-999.97)/999.97
-
 	R_star = sqrt(T_bm/999.97)*D_s/1e-6
 	if R_star >= 0.6: lhs = 0.25
 	else: lhs = 0.15/R_star
 
-	Ucs = lhs*Sd/9.81/D_s
-	T_sc = Ucs**2*999.97
+	T_sc = lhs/9.81/D_s * (rho_s - 999.97)
 
 	if T_sc < T_bm: return 0
 
