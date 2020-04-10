@@ -78,7 +78,7 @@ def calcSuspendedConcentration(D_s, rho_s, R, S, u_bar, w, T_bm):
 	if R_star >= 0.6: lhs = 0.25
 	else: lhs = 0.15/R_star
 
-	T_sc = lhs/9.81/D_s * (rho_s - 999.97)
+	T_sc = lhs/ 9.81 / D_s / (rho_s - 999.97)
 
 	if T_sc < T_bm: return 0
 
