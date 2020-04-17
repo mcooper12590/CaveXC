@@ -125,3 +125,10 @@ def calcL(x,y):
 	sub_sums = cumsum(sub_lengths)
 	length = sub_sums[-1]
 	return length
+
+def calcArea(x, y, l=0, r=0):
+	if l and r:
+		sA = (roll(x[l:r],1)*y[l:r] - x[l:r]*roll(y[l:r],1)).sum()
+	else:
+		sA = (roll(x,1)*y - x*roll(y,1)).sum()
+	return fabs(0.5 * sA)
