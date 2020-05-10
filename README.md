@@ -8,12 +8,12 @@ Two example scripts are included to simulate different cross-sections. The scrip
 
 The code paragenesis.py includes command line options given by "python paragenesis.py option=value". Physical parameters for the model are:
 
-  * Q - discharge [m^3/s],
+  * Q - discharge [m<sup>3</sup>/s],
   * Qs - sediment supply [kg/s],
   * rh - roughness length for the law of the wall (z_0) [m],
   * D_s - sediment size [m],
-  * n - exponent in the erosion law k*\tau_b^n,
-  * rho_s - sediment density [kg/m^3].
+  * n - exponent in the erosion law kτ<sub>b</sub><sup>n</sup>,
+  * rho_s - sediment density [kg/m<sup>3</sup>].
 
 Additionally, there are several option to control the model dynamics:
   * rh_type - type of roughness used in the model,
