@@ -10,7 +10,7 @@ The code paragenesis.py includes command line options given by "python paragenes
 
   * Q - discharge [m<sup>3</sup>/s],
   * Qs - sediment supply [kg/s],
-  * rh - roughness length for the law of the wall (z_0) [m],
+  * rh - roughness length for the law of the wall (z<sub>0</sub>) [m],
   * D_s - sediment size [m],
   * n - exponent in the erosion law kτ<sub>b</sub><sup>n</sup>,
   * rho_s - sediment density [kg/m<sup>3</sup>].
@@ -24,7 +24,7 @@ The option rh_type has several values:
   * 1 - use bedrock roughness as specified by physical parameter rh,
   * 2 - use sediment roughness calculated from D_s (6.8D_s/30),
   * 3 - composite roughness weighting bedrock roughness and sediment roughness by their perimeter portion lengths,
-  * 4 - per-point roughness where z_0 varies during calculation of z_0.
+  * 4 - per-point roughness where z<sub>0</sub> varies during calculation of z<sub>0</sub>.
 
 Further, options controlling the outputs of the script are:
   * sFile - file to save equilibrium cross-section data (eq. width, area),
