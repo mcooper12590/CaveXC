@@ -5,6 +5,24 @@ from numpy import log, tan, radians, any
 
 # Calculate sediment transport capacity for each point around perimeter
 def calcLSTC(Tb, rho_s, D_s, T_sc):
+	"""
+	Calculates sediment transport capacity for points along perimeter.
+
+	Parameters
+	----------
+	Tb : boundary shear stress at each point [Pa]
+	rho_s : sediment density [kg/m^3]
+	D_s : sediment diameter [m]
+	T_sc : critical shields stress of sediment [1]
+
+	Returns
+	-------
+	q_t : sediment transport capacity at each point along perimeter
+
+	Notes
+	-----
+	Returns -1 if there is not enough shear stress to transport sediment
+	"""
 
 	R_b = rho_s/999.97 - 1
 	T_s = Tb/((rho_s - 999.97)*9.81*D_s)
@@ -19,6 +37,32 @@ def calcLSTC(Tb, rho_s, D_s, T_sc):
 
 # Find the left and right coords. for bed-load layer
 def findBedLoad(wcs, y_min, q_t, Q_s):
+	"""
+	Find left and right indices defining a bed-load layer.
+
+	Parameters
+	----------
+	wcs : cross-section object to find bed-load layer in
+	y_min : index of lowest point in cross-section
+	q_t : sediment transport capacity at each cross-section point [Pa]
+	Q_s : prescribed bed-load sediment supply [kg/s]
+
+	Returns
+	-------
+	Ls : left point intersection of cross-section and bed-load layer
+	Rs : right point intersection of cross-section and bed-load layer
+
+	Notes
+	-----
+	Finds left and right indices along cross-section where points
+	intersect the bed-load layer by integrating sediment transport
+	capacity iteratively until integral equals Q_s.
+
+	Returns 0,-1 if shear stress is below critical shields stress
+	or if bed-load entire cannot be supported by shear stress in
+	the cross-section. These exceptions force alluviation as sediment
+	cannot be transported by available shear stress.
+	"""
 
 	# Alluviation forcing if critical shields stress is not reached
 	if (type(q_t) is int):
@@ -50,6 +94,22 @@ def findBedLoad(wcs, y_min, q_t, Q_s):
 
 # Calculate critical shields stress from sed. diameter
 def calcTscr(rho_s, D_s):
+	"""
+	Calculates critical shields stress.
+
+	Parameters
+	----------
+	rho_s : sediment density [kg/m^3]
+	D_s : sediment diameter [m]
+
+	Returns
+	-------
+	T_sc : dimensionless critical shields stress
+
+	Notes
+	-----
+	Calculates critical shields stress by fits to data in Julien book
+	"""
 
 	if D_s < 0.0005: phi = 30.
 	elif D_s >= 0.0005 and D_s < 0.064:
@@ -68,12 +128,51 @@ def calcTscr(rho_s, D_s):
 	return T_sc
 
 def calcFallVelocity(rho_s, D_s):
+	"""
+	Calculates fall velocity of sediment.
+
+	Paramters
+	---------
+	rho_s : sediment density [kg/m^3]
+	D_s : sediment diameter [m]
+
+	Returns
+	-------
+	w - fall velocity of sediment [m/s]
+
+	Notes
+	-----
+	Equation used is from Ferguson and Church [2004]. C1 and C2
+	values correspond to fits for natural grains.
+	"""
 	Sd = (rho_s - 999.97)/999.7
 	C1 = 18.; C2 = 1.0;
 	w = Sd*9.81*D_s**2 / ( C1*1e-6 + (0.75*C2*Sd*9.81*D_s**3)**0.5 )
 	return w
 
 def calcSuspendedConcentration(D_s, rho_s, R, S, u_bar, w, T_bm):
+	"""
+	Calculates at-capacity suspended sediment concentration.
+
+	Parameters
+	----------
+	D_s : sediment diameter [m]
+	rho_s : sediment density [kg/m^3]
+	R : hydraulic radius of cross-section [m]
+	u_bar : average shear stress in cross-section [m/s]
+	w : fall velocity of sediment [m/s]
+	T_bm : average shear stress in cross-section [Pa]
+
+	Returns
+	-------
+	Ct : at-capacity suspended sediment concentration
+
+	Notes
+	-----
+	Equation and fitting parameters from Celik and Rodi [1991]. Returns
+	0 if average shear stress is below threshold for suspension.
+	Threshold equation from Celik and Rodi [1984].
+	"""
 	R_star = sqrt(T_bm/999.97)*D_s/1e-6
 	if R_star > 0.6: lhs = 0.25
 	else: lhs = 0.15/R_star

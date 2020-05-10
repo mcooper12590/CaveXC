@@ -208,7 +208,7 @@ while(True):
 	# There is a possibility of no bedload if all is being transported
 	# as suspended load
 	if Qs_bed > 0:
-		q_t = calcLSTC(F.T_b, rho_s, D_s, T_sc)
+		q_t = calcLSTC(F.T_b, rho_s, D_s, T_sc)#transport capacity
 		xLs, xRs = findBedLoad(wcs, y_min, q_t, Qs_cor)
 
 		# Alluviate by D_s if BLL thickness > 5*D_s

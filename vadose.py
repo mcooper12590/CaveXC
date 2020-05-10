@@ -46,7 +46,7 @@ widths = zeros(t)
 
 for ts in arange(t):
     FH = fmin(findH, g_h, (cs, Q, S, rh), disp=False) # find position of free-surface by minimizing difference between calcQ
-    h = FH[0] # record
+    h = FH[0] # height of free-surface above bottom of cross-section
     g_h = h # use for next guess
     L, R = cs.findLR(h) # get indices for left and right of free-surface
 

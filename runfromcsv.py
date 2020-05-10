@@ -84,7 +84,7 @@ for i in arange(Qw.size):
 	t_s = "t=" + str(int(t[i]/4.))
 	r_s = "rh_type=" + str(r_type[i])
 
-	print "Starting time:", asctime(gmtime()) + "..."
+	print("Starting time:", asctime(gmtime()) + "...")
 
 	# Time out if things ran for more than 10 minutes.. possible hangup
 	CallPara(callcmd(Q_s, Qs_s, rh_s, rho_s_s, D_s_s, n_s, t_s, r_s), \
@@ -92,5 +92,5 @@ for i in arange(Qw.size):
 	endt = time()
 	Ran[i] = True
 	lwrite()
-	print "Done at:", asctime(gmtime()) + \
-		". Run took:", endt-startt, "seconds.."
+	print()"Done at:", asctime(gmtime()) + \
+		". Run took:", endt-startt, "seconds..")
