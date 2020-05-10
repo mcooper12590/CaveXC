@@ -39,4 +39,6 @@ Another script, runfromcsv.py, runs paragenesis.py given a CSV of options. Examp
 
 
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3401390.svg)](https://doi.org/10.5281/zenodo.3401390)
+
+
+  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3819553.svg)](https://doi.org/10.5281/zenodo.3819553)
