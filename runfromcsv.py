@@ -74,7 +74,7 @@ for i in arange(Qw.size):
 		continue
 
 	startt = time()
-	print "Run:", Qw[i], Qs[i]
+	print("Run:", Qw[i], Qs[i])
 	Q_s = "Q=" + str(Qw[i])
 	Qs_s = "Qs=" + str(Qs[i])
 	rh_s = "rh=" + str(rh[i])
@@ -92,5 +92,5 @@ for i in arange(Qw.size):
 	endt = time()
 	Ran[i] = True
 	lwrite()
-	print()"Done at:", asctime(gmtime()) + \
+	print("Done at:", asctime(gmtime()) + \
 		". Run took:", endt-startt, "seconds..")

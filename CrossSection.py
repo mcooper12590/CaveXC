@@ -209,7 +209,7 @@ def ccw(x, y, xm, ym, nx, ny):
 	ccw : Array of bools indicating which new points are counter clockwise
 	"""
 
-	        return (x - xm) * (ny - ym) > (y - ym) * (nx - xm)
+	return (x - xm) * (ny - ym) > (y - ym) * (nx - xm)
 
 # Calculate length of curve defined by points
 def calcL(x,y):

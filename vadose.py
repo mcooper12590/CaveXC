@@ -58,7 +58,7 @@ for ts in arange(t):
     uMx = 0. # U_{max} ref point in center of f-s
     #uMx = (wcs.x[-1]+wcs.x[0])/2
     uMy = wcs.y[0]
-    wcs.setUMPoint(uMx, uMy)
+    wcs.setUMPoint(uMx, uMy) # set reference point to center of free-surface
     wcs.calcShapeParams()
     wcs.genRL()
 

@@ -200,7 +200,6 @@ while(True):
 	# Calculate bed-load by subtracting at-capacity suspended load from Q_s
 	if scor:
 		Ct = calcSuspendedConcentration(D_s, rho_s, F.R, F.S, F.u_bar, w, F.T_b.mean())
-		print Q*Ct*rho_s
 		Qs_bed = Q_s - Q*Ct*rho_s
 	# If no partitioning use Q_s for Qs_bed
 	else: Qs_bed = Q_s
@@ -209,7 +208,7 @@ while(True):
 	# as suspended load
 	if Qs_bed > 0:
 		q_t = calcLSTC(F.T_b, rho_s, D_s, T_sc)#transport capacity
-		xLs, xRs = findBedLoad(wcs, y_min, q_t, Qs_cor)
+		xLs, xRs = findBedLoad(wcs, y_min, q_t, Qs_bed)
 
 		# Alluviate by D_s if BLL thickness > 5*D_s
 		if (wcs.y[xLs] - wcs.y[y_min]) > 5*D_s:
@@ -235,7 +234,7 @@ while(True):
 
 	if ((ts-1)%1000 == 0):
 		print("Width:", wcs.x.max() - wcs.x.min())
-		print "RReynolds:", sqrt(9.81*wcs.A/wcs.P*F.S)*mean(30*rh)/1e-6
+		print("RReynolds:", sqrt(9.81*wcs.A/wcs.P*F.S)*mean(30*rh)/1e-6)
 
 	# Redraw main cross-section with resampling
 	cs.redraw(rl, resample=True)

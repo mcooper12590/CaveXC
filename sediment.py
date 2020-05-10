@@ -1,5 +1,5 @@
 from simps2 import simps2
-from numpy import log, tan, radians, any
+from numpy import log, tan, radians, any, sqrt
 
 # Functions relating to erosion by saltating bed load, Nelson&Seminara, 2011
 
