@@ -24,7 +24,7 @@ The option rh_type has several values:
   * 1 - use bedrock roughness as specified by physical parameter rh,
   * 2 - use sediment roughness calculated from D_s (6.8D_s/30),
   * 3 - composite roughness weighting bedrock roughness and sediment roughness by their perimeter portion lengths,
-  * 4 - per-point roughness where z<sub>0</sub> varies during calculation of z<sub>0</sub>.
+  * 4 - per-point roughness where z<sub>0</sub> varies along the perimeter.
 
 Further, options controlling the outputs of the script are:
   * sFile - file to save equilibrium cross-section data (eq. width, area),
