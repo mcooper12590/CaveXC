@@ -32,7 +32,7 @@ Further, options controlling the outputs of the script are:
   * save_tsdata - save per time step shear stress, cross-sectional area and width (value=1),
   * suppress_print - do not print per time step information to the command line.
 
-Another script, runfromcsv.py, runs paragenesis.py given a CSV of options. Example CSVs are provided in examples/CooperCovington2020/. These CSVs are the options used for simulations in Cooper and Covington, in press, "Modeling cave cross-section including sediment transport and paragenesis", Earth Surface Processes and Landforms. Options for this script are:
+Another script, runfromcsv.py, runs paragenesis.py given a CSV of options. Example CSVs are provided in examples/CooperCovington2020/. These CSVs are the options used for simulations in Cooper and Covington, 2020, "Modeling cave cross-section including sediment transport and paragenesis", Earth Surface Processes and Landforms (https://doi.org/10.1002/esp.4915). Options for this script are:
   * sFile - the equivalent of sFile for paragenesis.py,
   * trf - CSV of options,
   * sedpart - the equivalent of sc for paragenesis.py.
